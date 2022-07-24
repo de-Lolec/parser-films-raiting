@@ -4,20 +4,13 @@ namespace MyProject\Controllers;
 
 
 use MyProject\Models\Users\User;
+use MyProject\Models\Users\UsersAuthService;
 use MyProject\View\View;
 use MyProject\Controllers\ParserController;
 use MyProject\Models\parsers\ParserAdd;
 
-class FilmController
+class FilmController extends AbstractController
 {
-
-    protected $view;
-    public function __construct()
-    {
-        $this->view = new View(__DIR__ . '/../../../templates');
-
-    }
-
 
     public function film(int $FilmId)
     {
@@ -36,36 +29,11 @@ class FilmController
 
     }
 
-    public static function PageMain($addFilm)
-    {
 
-        $main = [];
-        $key = [];
-
-
-        foreach ($addFilm as $key => $Film) {
-            $main[] = $Film;
-            if ($key == 10) {
-                //  var_dump($main);
-                return $main;
-            }
-        }
-    }
-    public function mainPages($pageValue){
-
-        $list = ParserAdd::findAll();
-        explode('%', $pageValue);
-        $main = self::page($pageValue, $list);
-        $this->view->renderHtml('pages/page.php', [
-            'filmPage' => $main,
-            'pageNum' => $pageValue,
-            'allSortFilms' => $list
-        ]);
-    }
 
     public function sortPages($number){
-        $list = self::sortList($_GET);
-        $main = self::page($number, $list);
+        $list = self::sortList($_GET, $number);
+
 
 
         $re = '/sort.+/m';
@@ -76,74 +44,34 @@ class FilmController
 
         $amountFilms = count($list)/10;
 
-
         $this->view->renderHtml('pages/page.php', [
-            'filmPage' => $main,
-            'pageNum' => $number,
+            'filmPage' => $list['sort'],
+            'pagesCount' => $list['count'],
             'pageSortNum' =>  implode('', $mainSort[0]),
-            'allSortFilms' => $list
+            'currentPageNum' => $number,
 
         ]);
     }
-    public static function page($pageValue, $list)
+
+    public function main()
     {
-
-        explode('%', $pageValue);
-
-
-
-        $page = $pageValue-1;
-        $pageNum = $page * 10;
-        $whileNum = $pageValue * 10;
-        $main = [];
-
-        while($pageNum <= $whileNum) {
-
-            $main[] = $list[$pageNum];
-            //     echo $pageNum . ' ';
-            $pageNum++;
-
-        }
-        return $main;
-        // var_dump($main);
-
+        $this->page(1);
     }
-
-
-    public function sort(){
-
-        $list = self::sortList($_GET);
-
-
-        $re = '~.$~';
-        $str = parse_url($_SERVER['QUERY_STRING'], PHP_URL_QUERY);
-
-        preg_match_all($re, $str, $matches, PREG_SET_ORDER, 0);
-        var_dump($matches);
-        var_dump($str);
-        var_dump(next($_GET));
-        var_dump($_GET);
-        $main = [];
-        $amount = 0;
-        while($amount != 10) {
-
-            $main[] = $list[$amount];
-
-            $amount++;
-
-        }
-
-        $this->view->renderHtml('pages/sort.php', [
-            'sortPage' => $main,
-
+    public function page(int $pageNum)
+    {
+        $this->view->renderHtml('main/main.php', [
+            'articles' => ParserAdd::getPage($pageNum, 10),
+            'pagesCount' => ParserAdd::getPagesCount(10),
         ]);
     }
-    public static function sortList($get){
+
+    public static function sortList($get, $number){
         $pivgrade = '';
         $year = false;
         $genre = [];
         $grade = '';
         $country = [];
+        $itemsPerPage = 10;
         foreach($get as $key => $tip) {
             if($tip == 'pivgrade'){
                 $pivgrade = 'pivgrade';
@@ -160,10 +88,7 @@ class FilmController
         }
 
 
-        echo reset($genre);
-        echo end($genre);
-
-        $list = ParserAdd::sortMain($pivgrade, $genre, $country, $grade);
+        $list = ParserAdd::sortMain($pivgrade, $genre, $country, $grade, $itemsPerPage, $number);
 
         return $list;
     }

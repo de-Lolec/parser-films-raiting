@@ -20,8 +20,8 @@ class CommentController extends ActiveRecordEntity
             foreach ($commFind as $comm) {
                 $commPq = pq($comm);
                 $AllComm = trim($commPq->text());
-                $checkComm = new CommentAdd();
-                $check = $checkComm::getCommentCheck($AllComm);
+                //$checkComm = new CommentAdd();
+                $check = CommentAdd::getCommentCheck($AllComm);
 
                 if (empty($check)) {
 

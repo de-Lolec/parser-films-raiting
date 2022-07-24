@@ -57,14 +57,14 @@ class ParserAdd extends ActiveRecordEntity
     public function setCountry(string $country){
         $this-> country = $country;
     }
-    public function setOriginal(string $orig_name){
+    public function setOriginal(?string $orig_name){
         $this-> orig_name = $orig_name;
     }
     public function setPivgrade($pivgrade){
         $this-> pivgrade = $pivgrade;
     }
     public function setUrllive($urllive){
-        $this-> urlllive = $urllive;
+        $this-> urllive = $urllive;
     }
     public function setUrlClub($urlclub){
         $this-> urlclub = $urlclub;

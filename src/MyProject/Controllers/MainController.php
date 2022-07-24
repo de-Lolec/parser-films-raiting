@@ -8,19 +8,20 @@ use MyProject\View\View;
 use MyProject\Models\parsers\ParserAdd;
 
 
-class MainController
+class MainController extends AbstractController
 {
-    /** @var View */
-    private $view;
-
-    public function __construct()
-    {
-        $this->view = new View(__DIR__ . '/../../../templates');
-    }
 
     public function main()
     {
-        $addFilm = ParserAdd::findAll();
-        $this->view->renderHtml('main/main.php', ['addFilm' => $addFilm]);
+        $this->page(1);
+    }
+    public function page(int $pageNum)
+    {
+        $this->view->renderHtml('main/main.php', [
+            'vsr' => ParserAdd::getPage($pageNum, 10),
+            'pagesCount' => ParserAdd::getPagesCount(10),
+            'currentPageNum' => $pageNum,
+
+        ]);
     }
 }

@@ -3,7 +3,7 @@
 return [
     'db' => [
         'host' => 'localhost',
-        'dbname' => 'my_project',
+        'dbname' => 'pdp',
         'user' => 'root',
         'password' => '',
         'charset'  => 'utf8mb4',

@@ -17,37 +17,34 @@ class UrlController extends ActiveRecordEntity
 
         $check = self::getUrlCheck($url);
         if (empty($check)) {
-     if(is_array($origname)) {
+            if (is_array($origname)) {
 
-           foreach ($origname as $orig) {
+                foreach ($origname as $orig) {
 
-            if (!empty($orig)) {
-                $addUrl = ParserAdd::getIdByOrig($orig);
+                    if (!empty($orig)) {
+                        $addUrl = ParserAdd::getIdByOrig($orig);
 
-            if (!empty($addUrl)) {
+                        if (!empty($addUrl)) {
 
-                    $addUrl->setUrllive($url);
-                    $addUrl->save();
+                            $addUrl->setUrllive($url);
+                            $addUrl->save();
 
+                        }
+                    }
                 }
 
+            } else {
+                if (!empty($origname)) {
+                    $addUrl = ParserAdd::getIdByOrig($origname);
+                    if (!empty($addUrl)) {
+
+                        $addUrl->setUrlClub($url);
+
+                        $addUrl->save();
+                        var_dump($addUrl);
+                    }
+                }
             }
-
-        }
-
-}  else {
-         if (!empty($origname)) {
-             $addUrl = ParserAdd::getIdByOrig($origname);
-             if (!empty($addUrl)) {
-
-                 $addUrl->setUrlClub($url);
-
-                 $addUrl->save();
-             }
-         }
-}
-
-        return 0;
         }
     }
     protected static function getTableName(): string

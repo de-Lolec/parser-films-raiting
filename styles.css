@@ -182,7 +182,7 @@ a.button7:active {
 
 a.button8 {
     position: absolute;
-
+    font-weight: 700;
     left: 230px;
     color: white;
     text-decoration: none;

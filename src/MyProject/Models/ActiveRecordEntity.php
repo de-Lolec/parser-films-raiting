@@ -61,7 +61,7 @@ abstract class ActiveRecordEntity
         );
 
     }
-    public static function getIdByOrig(string $origName): ?self{
+    public static function getIdByOrig(?string $origName): ?self{
         $db = $db = Db::getInstance();
         $origName = $db->query(
             'SELECT * FROM `' . static::getTableName() . '` WHERE orig_name=:id;',
@@ -89,56 +89,102 @@ abstract class ActiveRecordEntity
         return $url ? $url[0] : null;
     }
 
-    public static function sortMain($pivgrade, $genre, $country, $grade){
+    public static function sortMain($pivgrade, $genre, $country, $grade, $itemsPerPage, $number){
         $endSort = '';
+        $endSortCount = '';
        if(!empty($pivgrade) && !empty($genre)){
-           $endSort = self::getSortPlusA($genre, $pivgrade);
+           $endSort = self::getSortPlusA($genre, $pivgrade, $itemsPerPage, $number);
+           $endSortCount = self::CountGetSortPlusA($genre, $pivgrade, $itemsPerPage, $number);
        }elseif (!empty($grade) && !empty($genre)){
-           $endSort = self::getSortPlusA($genre, $grade);
+           $endSort = self::getSortPlusA($genre, $grade, $itemsPerPage, $number);
+           $endSortCount = self::CountGetSortPlusA($genre, $grade, $itemsPerPage, $number);
        } elseif (!empty($grade)){
-           $endSort = self::getSortPlus($grade);
+           $endSort = self::getSortPlus($grade, $itemsPerPage, $number);
+           $endSortCount = self::CountGetSortPlus($grade, $itemsPerPage, $number);
        }elseif (!empty($genre)){
-           $endSort = self::getSort($genre);
+           $endSort = self::getSort($genre, $itemsPerPage, $number);
+           $endSortCount = self::CountGetSort($genre, $itemsPerPage, $number);
        }elseif(!empty($pivgrade)){
-            $endSort = self::getSortPlus($pivgrade);
+            $endSort = self::getSortPlus($pivgrade, $itemsPerPage, $number);
+            $endSortCount = self::CountGetSortPlus($pivgrade, $itemsPerPage, $number);
         }
-       return $endSort;
+        return [
+          'sort' => $endSort,
+          'count' => $endSortCount,
+        ];
     }
 
-    public static function getSort($sort){
+    public static function getSort($sort, $itemsPerPage, $pageNum){
 
         $db = $db = Db::getInstance();
         return $db->query(
-            'SELECT * FROM `' . static::getTableName() . '` WHERE '. key($sort) . ' LIKE :id;',
-            [':id' => implode('',($sort[key($sort)])),
-
+            'SELECT * FROM `' . static::getTableName() . '` WHERE '. key($sort) . ' LIKE :genre LIMIT :iPerPage OFFSET :Num;',
+            [':genre' => implode('',($sort[key($sort)])),
+                ':iPerPage' => $itemsPerPage,
+                ':Num' => ($pageNum - 1) * $itemsPerPage,
             ],
             static::class
         );
     }
 
-    public static function getSortPlus($sortPlus){
+    public static function getSortPlus($sortPlus, $itemsPerPage, $pageNum){
 
         $db = $db = Db::getInstance();
         return $db->query(
-            'SELECT * FROM `' . static::getTableName() . '` ORDER BY '. $sortPlus  . ' DESC;',
-            [],
+            'SELECT * FROM `' . static::getTableName() . '` ORDER BY '. $sortPlus  . ' DESC LIMIT :iPerPage OFFSET :Num;',
+            [ ':iPerPage' => $itemsPerPage,
+                ':Num' => ($pageNum - 1) * $itemsPerPage,
+                ],
             static::class
         );
     }
 
-    public static function getSortPlusA($genre, $type){
+    public static function getSortPlusA($genre, $type, $itemsPerPage, $pageNum){
 
         $db = $db = Db::getInstance();
         return $db->query(
-            'SELECT * FROM `' . static::getTableName() . '` WHERE '. array_key_first($genre) . ' LIKE :id AND ' . array_key_last($genre) . ' LIKE :idi ORDER BY ' . $type . ' DESC;',
+            'SELECT * FROM `' . static::getTableName() . '` WHERE '. array_key_first($genre) . ' LIKE :id AND ' . array_key_last($genre) . ' LIKE :idi ORDER BY ' . $type . ' DESC LIMIT :iPerPage OFFSET :Num;',
+            [':id' => '%' . implode('',(reset($genre))),
+                ':idi' => '%' . implode('',end($genre)),
+                ':iPerPage' => $itemsPerPage,
+                ':Num' => ($pageNum - 1) * $itemsPerPage,
+            ],
+            static::class
+        );
+    }
+
+    public static function CountGetSort($sort, $itemsPerPage, $pageNum){
+
+        $db = $db = Db::getInstance();
+        $result = $db->query('SELECT COUNT(*) AS cnt FROM `' . static::getTableName() . '` WHERE '. key($sort) . ' LIKE :genre;',
+            [':genre' => implode('',($sort[key($sort)])),
+                ],
+            static::class
+        );
+        return ceil($result[0]->cnt / $itemsPerPage);
+    }
+
+    public static function CountGetSortPlus($sortPlus, $itemsPerPage, $pageNum){
+
+        $db = $db = Db::getInstance();
+        $result = $db->query('SELECT COUNT(*) AS cnt FROM `' . static::getTableName() . '` ORDER BY '. $sortPlus  . ' DESC;',
+            [],
+            static::class
+        );
+        return ceil($result[0]->cnt / $itemsPerPage);
+    }
+
+    public static function CountGetSortPlusA($genre, $type, $itemsPerPage, $pageNum){
+
+        $db = $db = Db::getInstance();
+        $result = $db->query('SELECT COUNT(*) AS cnt FROM `' . static::getTableName() . '` WHERE '. array_key_first($genre) . ' LIKE :id AND ' . array_key_last($genre) . ' LIKE :idi;',
             [':id' => '%' . implode('',(reset($genre))),
                 ':idi' => '%' . implode('',end($genre))
             ],
             static::class
         );
+        return ceil($result[0]->cnt / $itemsPerPage);
     }
-
 
 
     public function save(): void
@@ -151,8 +197,27 @@ abstract class ActiveRecordEntity
         }
     }
 
-
-
+    public static function getPagesCount(int $itemsPerPage): int
+    {
+        $db = Db::getInstance();
+        $result = $db->query('SELECT COUNT(*) AS cnt FROM ' . static::getTableName() . ';');
+        return ceil($result[0]->cnt / $itemsPerPage);
+    }
+    
+    public static function getPage(int $pageNum, int $itemsPerPage): array
+    {
+        $db = $db = Db::getInstance();
+        return $db->query(
+            sprintf(
+                'SELECT * FROM `%s` ORDER BY id DESC LIMIT %d OFFSET %d;',
+                static::getTableName(),
+                $itemsPerPage,
+                ($pageNum - 1) * $itemsPerPage
+            ),
+            [],
+            static::class
+        );
+    }
 
     abstract protected static function getTableName(): string;
 
@@ -211,6 +276,20 @@ abstract class ActiveRecordEntity
         }
 
         return $mappedProperties;
+    }
+
+    public static function findOneByColumn(string $columnName, $value): ?self
+    {
+        $db = Db::getInstance();
+        $result = $db->query(
+            'SELECT * FROM `' . static::getTableName() . '` WHERE `' . $columnName . '` = :value LIMIT 1;',
+            [':value' => $value],
+            static::class
+        );
+        if ($result === []) {
+            return null;
+        }
+        return $result[0];
     }
 
     private function camelCaseToUnderscore(string $source): string

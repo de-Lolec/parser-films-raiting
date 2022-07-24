@@ -1,15 +1,10 @@
 <?php
-use MyProject\Models\parsers\Parser;
+use MyProject\Repositories\Parser;
 use MyProject\Models\parsers\ParserAdd;
-use MyProject\Controllers\ParserController;
+use MyProject\Controllers\ParserControllerClub;
 use MyProject\Controllers\FilmController;
 include __DIR__ . '/../header.php';
 ?>
-
-<?php //$vsp = ParserController::addBlock() ?>
-<?php // $vsr = FilmController::Page();?>
-<?php //foreach($vsp as $value): ?>
-
 
 <?php
 foreach ($filmPage as $Film):
@@ -72,62 +67,27 @@ foreach ($filmPage as $Film):
 
 ?>
 
-    <div class = "pages">
 
-<!-- Главная страница без сортировки -->
+        <div style="text-align: center">
+            <?php
 
-<?php
-if(empty($pageSortNum) and $pageNum <= 4 ) {?>
+            for ($pageNum = $currentPageNum-5; $pageNum <= $pagesCount; $pageNum++): ?>
+                <?php if ($currentPageNum+6 <= $pageNum):
+                    break;
+                    ?>
+                <?php endif;?>
+                <?php if ($currentPageNum == $pageNum): ?>
+                    <b><?= $pageNum ?></b>
 
-    <?for ($i=1;$i<=8;$i++) :?>
-    <button onclick="window.location.href='http://podpivo/page/<?=$i?>'" class="btn" ><?= $i?></button>
-    <? endfor;?>
+                <?php elseif($pageNum > 0): ?>
+                    <a href="/<?= 'page=' . $pageNum . '/route=' . $pageSortNum ?>"><?= $pageNum ?></a>
 
-    <!-- След страницы без сортировки -->
+                <?php endif;?>
 
-<?}elseif( empty($pageSortNum) and $pageNum >= 4) {?>
-
-    <button onclick="window.location.href='http://podpivo/page/1'" class="btn">1</button>
-    <button class="btn">...</button>
-    <?
-    $j = $pageNum;
-    for($pageNum -= 2; $pageNum <= ceil((count($allSortFilms)-$pageNum))/10 ;$pageNum++) :
-        ?>
-
-        <? if($pageNum >= $j +5){
-        break;
-    }?>
-    <button onclick="window.location.href='http://podpivo/page/<? echo $pageNum ?>'" class="btn"><? echo $pageNum ?></button>
-
-   <? endfor; ?>
-
-    <!-- Главная страница с сортировкой -->
-
-<? } elseif(!empty($pageSortNum) and $pageNum <= 5) {?>
-
-    <?for ($i=1;$i<=8;$i++) :?>
-    <button onclick="window.location.href='<? echo 'http://podpivo/page=' . $i . '/route=' . $pageSortNum ?>'" class="btn"><?= $i?></button>
- <? endfor;?>
-    <!-- След страницы с сортировкой -->
-<?} elseif(!empty($pageSortNum) and $pageNum > 5){
-    ?>
-
-    <button onclick="window.location.href='<? echo 'http://podpivo/page=1/route=' . $pageSortNum ?>'" class="btn">1</button>
-    <button class="btn">...</button>
-    <?
-    $j = $pageNum;
-    for($pageNum -= 2; $pageNum <= ceil(count($allSortFilms)/10) ;$pageNum++){
-      ?>
-        <? if($pageNum >= $j +5){
-            break;
-        }?>
-    <button onclick="window.location.href='http://podpivo/page=<? echo $pageNum  .  '/route=' . $pageSortNum ?>'" class="btn"><? echo $pageNum?></button>
+            <?php endfor; ?>
+        </div>
 
 
-<?php
-    }
-}
-?>
-    </div>
+
 
 <?php include __DIR__ . '/../footer.php';?>

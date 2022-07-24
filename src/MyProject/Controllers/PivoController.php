@@ -11,21 +11,6 @@ use MyProject\Models\parsers\ParserAdd;
 
 class PivoController
 {
-    public static function PageMain($addFilm)
-    {
-
-        $main = [];
-        $key = [];
-
-
-        foreach ($addFilm as $key => $Film) {
-            $main[] = $Film;
-            if ($key == 10) {
-                //  var_dump($main);
-                return $main;
-            }
-        }
-    }
 
     public static function commentAnalyze()
     {
@@ -76,7 +61,7 @@ class PivoController
 
             foreach ($commentText as $IdFilm => $text) {
 
-                $re = '/(пивко|пьяным|поржал|по пьяне|алкоголь|пивка|угар|смотреть пьяным|пиво| мат |трезвым не смотреть|под вино|душевно| вино )/m';
+                $re = '/(пивко|пьяным|поржал|по пьяне|алкоголь|пивка|угар|смотреть пьяным|пиво| мат |трезвым не смотреть|под вино|душевно| вино | мата| мат. |)/m';
                 $str = $text;
 
                 preg_match_all($re, $str, $matches, PREG_SET_ORDER, 0);
@@ -87,7 +72,7 @@ class PivoController
                         //    var_dump($match[0]);
                         if($match[0] == 'пивко' || $match[0] == 'пивка' || $match[0] == 'пиво' || $match[0] == 'смотреть пьяным' || $match[0] == 'трезвым не смотреть'|| $match[0] == 'под вино' || $match[0] == ' вино ' || $match[0] == 'по пьяне'){
                             $pivGrade += 4;
-                        }elseif ($match[0] == 'алкоголь' || $match[0] == 'душевно' || $match[0] == ' мат '){
+                        }elseif ($match[0] == 'алкоголь' || $match[0] == 'душевно' || $match[0] == ' мат ' || $match[0] == ' мата'){
                             $pivGrade +=2;
                         }elseif ($match[0] == 'угар' || $match[0] == 'поржал'){
                             $pivGrade +=1;
@@ -105,43 +90,19 @@ class PivoController
                 }
 
             }
-            $pivGrade = $pivGrade + $countryTest + $yearTest;
+            $pivGradeFinal = $pivGrade + $countryTest + $yearTest;
             if(!empty($IdTest)) {
                 $addFilm = ParserAdd::getById($IdTest);
-                $addFilm->setPivgrade($pivGrade);
+                $addFilm->setPivgrade($pivGradeFinal);
                 $addFilm->save();
 
 
             }
 
         }
-    }
-    public function page($pageNumber)
-    {
-        $list = ParserAdd::findAll();
-
-
-        $page = $pageNumber-1;
-        $pageNum = $page * 10;
-        $whileNum = $pageNumber * 10;
-        $main = [];
-        $i = 0;
-        while($pageNum <= $whileNum) {
-
-            $main[] = $list[$pageNum];
-            $pageNum++;
-
-        }
-
-        $this->view->renderHtml('pages/page.php', [
-            'filmPage' => $main,
-            'pageNum' => $pageNumber
-        ]);
-    }
-
-    public function regPiv(){
 
     }
+
 
 
 }

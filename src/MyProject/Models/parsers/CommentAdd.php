@@ -18,8 +18,7 @@ class CommentAdd extends ActiveRecordEntity
 
     public function setComment($comment){
         $this -> comment = $comment;
-}
-
+    }
     public function setFilmId($filmId)
     {
         $this -> filmId = $filmId -> getId();
