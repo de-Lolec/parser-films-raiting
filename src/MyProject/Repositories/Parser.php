@@ -1,6 +1,6 @@
 <?php
 
-namespace MyProject\Repositories\parsers;
+namespace MyProject\Repositories;
 use MyProject\Models\parsers\ParserAdd;
 use MyProject\Services\Db;
 use MyProject\View\View;
