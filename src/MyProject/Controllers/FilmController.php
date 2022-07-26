@@ -22,15 +22,6 @@ class FilmController extends AbstractController
 
     }
 
-    public function dva()
-    {
-        echo 'sdasdasd';
-        file_put_contents('Z:\\4.log', date(DATE_ISO8601) . PHP_EOL, FILE_APPEND);
-
-    }
-
-
-
     public function sortPages($number){
         $list = self::sortList($_GET, $number);
 
@@ -86,7 +77,6 @@ class FilmController extends AbstractController
             }
 
         }
-
 
         $list = ParserAdd::sortMain($pivgrade, $genre, $country, $grade, $itemsPerPage, $number);
 

@@ -3,6 +3,7 @@
 namespace MyProject\Controllers;
 
 use MyProject\Exceptions\InvalidArgumentException;
+use MyProject\Exceptions\IsNotAdmin;
 use MyProject\Models\Users\User;
 use MyProject\Models\Users\UserActivationService;
 use MyProject\Models\Users\UsersAuthService;
@@ -40,9 +41,10 @@ class UsersController extends AbstractController
     public function PDadmin(){
         $admin = UsersAuthService::getUserByToken();
         if($admin->isAdmin() == true) {
-            $this->view->renderHtml('users/adminProfile.php');
+           $this->view->renderHtml('users/adminProfile.php');
         } else{
             $this->view->renderHtml('users/login.php');
+            throw new IsNotAdmin();
         }
     }
 

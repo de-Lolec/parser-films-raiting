@@ -16,13 +16,14 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f29d17de-024f-4cd6-9f24-63a8d2b92248" name="Default Changelist" comment="Правки">
+    <list default="true" id="f29d17de-024f-4cd6-9f24-63a8d2b92248" name="Default Changelist" comment="Правки по файлам">
+      <change afterPath="$PROJECT_DIR$/templates/main/main.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MyProject/Controllers/ParserControllerLive.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main/bye.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main/hello.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main/main.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main/title.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MyProject/Controllers/FilmController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyProject/Controllers/FilmController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MyProject/Controllers/ParserControllerClub.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyProject/Controllers/ParserControllerClub.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MyProject/Controllers/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyProject/Controllers/UsersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MyProject/Services/DbException.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,12 +65,16 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/MyProject/Exceptions" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="Z:\Work\OpenServer\domains\podpivo\src\MyProject\Exceptions" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="Z:\Work\OpenServer\domains\asdw2\src\MyProject\Models\Articles" />
       <recent name="Z:\Work\OpenServer\domains\asdw2\src\MyProject\Controllers" />
@@ -196,6 +201,7 @@
       <workItem from="1645624093764" duration="7901000" />
       <workItem from="1645651627200" duration="3889000" />
       <workItem from="1645709066184" duration="5708000" />
+      <workItem from="1658798829658" duration="4174000" />
     </task>
     <task id="LOCAL-00001" summary="Правки">
       <created>1658715138250</created>
@@ -215,7 +221,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -227,17 +245,45 @@
     <option name="LAST_COMMIT_MESSAGE" value="Правки" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1658715332406">
+    <state x="713" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1658808565788">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040/3840.44.1842.996@0.0.1920.1040" timestamp="1658715332406" />
-    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1658714769626">
+    <state x="713" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1920.1040/3840.44.1842.996@0.0.1920.1040" timestamp="1658808565788" />
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1658808142308">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1920.1040/3840.44.1842.996@0.0.1920.1040" timestamp="1658714769626" />
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040/1920.0.1920.1040/3840.44.1842.996@0.0.1920.1040" timestamp="1658808142308" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1658719494040">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040/3840.44.1842.996@0.0.1920.1040" timestamp="1658719494040" />
+    <state x="691" y="243" key="NewPhpClassDialog" timestamp="1658808528224">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="691" y="243" key="NewPhpClassDialog/0.0.1920.1040/1920.0.1920.1040/3840.44.1842.996@0.0.1920.1040" timestamp="1658808528224" />
+    <state x="461" y="165" key="SettingsEditor" timestamp="1658719804193">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040/3840.44.1842.996@0.0.1920.1040" timestamp="1658719804193" />
+    <state x="807" y="433" key="VCS.ChangelistChooser" timestamp="1658807961098">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="807" y="433" key="VCS.ChangelistChooser/0.0.1920.1040/1920.0.1920.1040/3840.44.1842.996@0.0.1920.1040" timestamp="1658807961098" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1658719938952">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040/3840.44.1842.996@0.0.1920.1040" timestamp="1658719938952" />
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1658719526214">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1920.1040/3840.44.1842.996@0.0.1920.1040" timestamp="1658719526214" />
     <state x="769" y="381" key="git4idea.rebase.GitRebaseDialog" timestamp="1658715280795">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="769" y="381" key="git4idea.rebase.GitRebaseDialog/0.0.1920.1040/1920.0.1920.1040/3840.44.1842.996@0.0.1920.1040" timestamp="1658715280795" />
+    <state x="760" y="421" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1658719424557">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="760" y="421" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1920.1040/1920.0.1920.1040/3840.44.1842.996@0.0.1920.1040" timestamp="1658719424557" />
   </component>
 </project>

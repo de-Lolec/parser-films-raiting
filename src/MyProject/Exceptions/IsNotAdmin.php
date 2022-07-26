@@ -2,6 +2,6 @@
 
 namespace MyProject\Exceptions;
 
-class DbException extends \Exception
+class IsNotAdmin extends \Exception
 {
 }

@@ -40,4 +40,7 @@ try {
 } catch (\MyProject\Exceptions\Forbidden $e) {
     $view = new \MyProject\View\View(__DIR__ . '/templates/errors');
     $view->renderHtml('403.php', ['error' => $e->getMessage()], 403);
+} catch (\MyProject\Exceptions\IsNotAdmin $e) {
+    $view = new \MyProject\View\View(__DIR__ . '/templates/errors');
+    $view->renderHtml('404.php', ['error' => $e->getMessage()], 404);
 }

@@ -14,17 +14,18 @@ class ParserControllerClub
 {
 
     public function controlParser(){
+
         foreach ($_POST['update'] as $item){
             if($item == 'addBlockClub'){
 
                 self::addBlockClub();
+                var_dump($item);
 
-            var_dump($item);
         } elseif($item == 'addBlockLive'){
 
                 self::addBlockLive();
-
                 var_dump($item);
+
             }elseif($item == 'commentAnalyze'){
                 PivoController::commentAnalyze();
             }
@@ -126,15 +127,11 @@ class ParserControllerClub
                             var_dump($addFilm);
                         }
                     }
-
                 }
             }
-
-
         }
 
         phpQuery::unloadDocuments();
-
     }
 
     public static function addBlockLive()
@@ -208,11 +205,9 @@ class ParserControllerClub
                     }
                 }
             }
-
         }
 
         phpQuery::unloadDocuments();
-
     }
 
 
