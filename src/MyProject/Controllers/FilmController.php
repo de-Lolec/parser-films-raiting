@@ -19,13 +19,24 @@ class FilmController extends AbstractController
         $this->view->renderHtml('film/film.php', [
             'film' => $film
         ]);
-
     }
+
+
+    public function dva()
+    {
+        echo 'dastard';
+    }
+        public function execute()
+    {
+        // чтобы проверить работу скрипта, будем записывать в файлик 1.log текущую дату и время
+        file_put_contents('Z:\\4.log', date(DATE_ISO8601) . PHP_EOL, FILE_APPEND);
+    }
+
+
+
 
     public function sortPages($number){
         $list = self::sortList($_GET, $number);
-
-
 
         $re = '/sort.+/m';
         $str = $_SERVER['REQUEST_URI'];

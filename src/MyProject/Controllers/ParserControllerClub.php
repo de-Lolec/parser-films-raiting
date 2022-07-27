@@ -38,7 +38,7 @@ class ParserControllerClub
 
         $osn_url = ["url" => "https://doramy.club/navi/page/2?razdel=filmy&tax_strana&tax_perevod&tax_studiya&sort_stat=status#038;tax_strana&tax_perevod&tax_studiya&sort_stat=status"];
 
-        $page = 1;
+        $page = 0;
 
         while ($page != 98) {
 
