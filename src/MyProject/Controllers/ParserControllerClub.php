@@ -36,15 +36,16 @@ class ParserControllerClub
     public static function addBlockClub()
     {
 
-        $osn_url = ["url" => "https://doramy.club/navi/page/2?razdel=filmy&tax_strana&tax_perevod&tax_studiya&sort_stat=status#038;tax_strana&tax_perevod&tax_studiya&sort_stat=status"];
+        $osn_url = ["url" => "https://doramy.club/navi/page/1?razdel=filmy&tax_strana&tax_perevod&tax_studiya&sort_stat=status#038;tax_strana&tax_perevod&tax_studiya&sort_stat=status"];
 
         $page = 0;
 
-        while ($page != 98) {
+        while ($page != 106) {
 
             $html = Parser::getPage($osn_url);
 
             $osn_url['url'] = "https://doramy.club/navi/page/" . $page++ . "?razdel=filmy&tax_strana&tax_perevod&tax_studiya&sort_stat=status#038;tax_strana&tax_perevod&tax_studiya&sort_stat=status";
+
 
             if (!empty($html["data"])) {
 
@@ -53,6 +54,8 @@ class ParserControllerClub
                 $pq = phpQuery::newDocument('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . $content);
 
                 $url = $pq->find(".post-home a");
+
+
 
                 foreach ($url as $ur) {
 
@@ -66,11 +69,18 @@ class ParserControllerClub
                     $contBlock = $htmlPage["data"]["content"];
 
                     $pqBlock = phpQuery::newDocument('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . $contBlock);
-                    $orig = $pq->find(".post-home em");
 
+                    foreach ($orig as $el) {
 
-                    $orig_name = $pqBlock->find(".original");
-                    $origNameUrl = self::addElement($orig);
+                        $clout = pq($el);
+                        $origNameUrl=trim($clout->text());
+
+                   // $orig_name = $pqBlock->find(".original");
+                  //  $origNameUrl = self::addElement($orig);
+
+                        $orig = $pq->find(".post-home em:eq(3)");
+
+                    file_put_contents('Z:\\5.log', date(DATE_ISO8601) . ' ' . $origNameUrl . ' ' . $page . '  ' . $urlName . PHP_EOL, FILE_APPEND);
 
                     if (empty(ParserAdd::getIdByOrig($origNameUrl))) {
 
@@ -125,12 +135,13 @@ class ParserControllerClub
                             UrlController::liveAdd($urlName, $origNameUrl);
                             CommentController::commentAdd($comment, $dtp['orig_name']);
                             var_dump($addFilm);
+
                         }
                     }
                 }
             }
         }
-
+        }
         phpQuery::unloadDocuments();
     }
 
