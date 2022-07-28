@@ -41,13 +41,11 @@ class ParserControllerClub
 
         $page = 0;
 
-
-        while ($page != 5) {
+        while ($page != 106) {
             $ied = 0;
             $html = Parser::getPage($osn_url);
 
             $osn_url['url'] = "https://doramy.club/navi/page/" . $page++ . "?razdel=filmy&tax_strana&tax_perevod&tax_studiya&sort_stat=status#038;tax_strana&tax_perevod&tax_studiya&sort_stat=status";
-
 
             if (!empty($html["data"])) {
 
@@ -57,9 +55,7 @@ class ParserControllerClub
 
                 $url = $pq->find(".post-home a");
 
-
                 foreach ($url as $ur) {
-
 
                     if ($ied != 10) {
 
@@ -69,47 +65,6 @@ class ParserControllerClub
                     }else{
                             $ied = 0;
                         }
-
-                    $re = 0;
-
-                 //   while($ied<10){
-
-                        // $ied++;
-
-
-
-//                        switch ($ied) {
-//                            case 0:
-//                                $orig = $pq->find(".post-home em:eq(0)");
-//                                break;
-//                            case 1:
-//                                $orig = $pq->find(".post-home em:eq(1)");
-//                                break;
-//                            case 2:
-//                                $orig = $pq->find(".post-home em:eq(2)");
-//                                break;
-//                            case 3:
-//                                $orig = $pq->find(".post-home em:eq(3)");
-//                                break;
-//                            case 4:
-//                                $orig = $pq->find(".post-home em:eq(4)");
-//                                break;
-//                            case 5:
-//                                $orig = $pq->find(".post-home em:eq(5)");
-//                                break;
-//                            case 6:
-//                                $orig = $pq->find(".post-home em:eq(6)");
-//                                break;
-//                            case 7:
-//                                $orig = $pq->find(".post-home em:eq(7)");
-//                                break;
-//                            case 8:
-//                                $orig = $pq->find(".post-home em:eq(8)");
-//                                break;
-//                            case 9:
-//                                $orig = $pq->find(".post-home em:eq(9)");
-//                                break;
-//                        }
 
                         $ied++;
                                 $urlOsn = pq($ur);
@@ -124,8 +79,7 @@ class ParserControllerClub
                                 $pqBlock = phpQuery::newDocument('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . $contBlock);
 
 
-                                // $orig_name = $pqBlock->find(".original");
-                                //  $origNameUrl = self::addElement($orig);
+
 
 
                                 foreach ($orig as $el) {
@@ -135,14 +89,8 @@ class ParserControllerClub
 
                                     file_put_contents('Z:\\5.log', date(DATE_ISO8601) . ' ' . $origNameUrl . ' ' . $ied . '  ' . $urlName . '    ' . $page . PHP_EOL, FILE_APPEND);
 
-var_dump($origNameUrl);
-
-//var_dump($ied);
-                                    //$CheckName = self::addElement($names);
-
                                     if (empty(ParserAdd::getIdByOrig($origNameUrl))) {
 
-                                        //    $checkOrig = self::addElement($orig_name);
 
                                         $urlOsn = pq($ur);
                                         $yearCheck = self::addElement($pqBlock->find(".tbody-sin td:eq(3)"));
@@ -212,7 +160,7 @@ var_dump($origNameUrl);
         $dop_url = ["url" => "https://doramalive.ru/dorama/?mode=film&PAGEN_1="];
         $page = 1;
         $offset = 0;
-        while ($page != 50) {
+        while ($page != 230) {
 
 
             $dopHtml = Parser::getPage($dop_url);
@@ -250,6 +198,7 @@ var_dump($origNameUrl);
                         $dopOrig2 = $pqBlock->find(".dl-horizontal i:eq(1)");
                         $dopOrig3 = $pqBlock->find(".dl-horizontal i:eq(2)");
                         $dopOrig4 = $pqBlock->find(".dl-horizontal i:eq(3)");
+                        file_put_contents('Z:\\5.log', date(DATE_ISO8601) . $urlName . '    ' . $page . PHP_EOL, FILE_APPEND);
 
                         while ($page2 != 3) {
 

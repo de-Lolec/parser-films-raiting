@@ -25,9 +25,9 @@ spl_autoload_register(function (string $className) {
 //
 //    file_put_contents('Z:\\5.log', date(DATE_ISO8601) . PHP_EOL, FILE_APPEND);
 
-ParserControllerClub::addBlockClub();
+//ParserControllerClub::addBlockClub();
 ParserControllerClub::addBlockLive();
-PivoController::commentAnalyze();
+//PivoController::commentAnalyze();
 
 //$updatePivGrade = new \MyProject\Controllers\PivoController;
 //$updateContent -> addBlockClub();
