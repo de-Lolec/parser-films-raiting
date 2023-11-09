@@ -11,6 +11,7 @@ use phpQuery;
 
 
 class ParserControllerClub
+
 {
 
     public function controlParser(){
@@ -36,12 +37,12 @@ class ParserControllerClub
     public static function addBlockClub()
     {
 
-        $osn_url = ["url" => "https://doramy.club/navi/page/2?razdel=filmy&tax_strana&tax_perevod&tax_studiya&sort_stat=status#038;tax_strana&tax_perevod&tax_studiya&sort_stat=status"];
+        $osn_url = ["url" => "https://doramy.club/navi/page/1?razdel=filmy&tax_strana&tax_perevod&tax_studiya&sort_stat=status#038;tax_strana&tax_perevod&tax_studiya&sort_stat=status"];
 
-        $page = 1;
+        $page = 0;
 
-        while ($page != 98) {
-
+        while ($page != 114) {
+            $ied = 0;
             $html = Parser::getPage($osn_url);
 
             $osn_url['url'] = "https://doramy.club/navi/page/" . $page++ . "?razdel=filmy&tax_strana&tax_perevod&tax_studiya&sort_stat=status#038;tax_strana&tax_perevod&tax_studiya&sort_stat=status";
@@ -56,81 +57,97 @@ class ParserControllerClub
 
                 foreach ($url as $ur) {
 
-                    $urlOsn = pq($ur);
-                    $urlName = trim($urlOsn->attr("href"));
+                    if ($ied != 10) {
 
-                    $dtp = [];
-                    $tmd['url'] = $urlName;
+                        var_dump($ied);
 
-                    $htmlPage = Parser::getPage($tmd);
-                    $contBlock = $htmlPage["data"]["content"];
-
-                    $pqBlock = phpQuery::newDocument('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . $contBlock);
-                    $orig = $pq->find(".post-home em");
-
-
-                    $orig_name = $pqBlock->find(".original");
-                    $origNameUrl = self::addElement($orig);
-
-                    if (empty(ParserAdd::getIdByOrig($origNameUrl))) {
-
-                        $checkOrig = self::addElement($orig_name);
-
-                        $urlOsn = pq($ur);
-                        $yearCheck = self::addElement($pqBlock->find(".tbody-sin td:eq(3)"));
-                        if($yearCheck == '18+') {
-                            $year = $pqBlock->find(".tbody-sin td:eq(5)");
-                            $country = $pqBlock->find(".tbody-sin td:eq(7)");
-                            $genre = $pqBlock->find(".tbody-sin td:eq(9)");
-                        } else{
-                            $year = $pqBlock->find(".tbody-sin td:eq(3)");
-                            $country = $pqBlock->find(".tbody-sin td:eq(5)");
-                            $genre = $pqBlock->find(".tbody-sin td:eq(7)");
+                        $orig = $pq->find(".post-home em:eq(" . $ied . ")");
+                    }else{
+                            $ied = 0;
                         }
-                        $time = $pqBlock->find(".tbody-sin td:eq(1)");
-                        $names = $pqBlock->find(".poloska h1");
-                        $description = $pqBlock->find(".annotaciya");
-                        $grade = $pqBlock->find(".unit-rating");
-                        $img = $pqBlock->find(".poster img");
-                        $comment = $pqBlock->find(".commentlist p");
 
-                        foreach ($img as $im) {
-                            $imgPq = pq($im);
-                            $imgUrl = trim($imgPq->attr("src"));
+                        $ied++;
+                                $urlOsn = pq($ur);
+                                $urlName = trim($urlOsn->attr("href"));
 
-                            $dtp = [
-                                'name' => self::addElement($names),
-                                'orig_name' => $origNameUrl,
-                                'country' => self::addElement($country),
-                                'time' => self::addElement($time),
-                                'year' => self::addElement($year),
-                                'genre' => self::addElement($genre),
-                                'description' => self::addElement($description),
-                                'grade' => self::addElement($grade),
-                                'poster' => $imgUrl,
-                            ];
+                                $dtp = [];
+                                $tmd['url'] = $urlName;
 
-                            $addFilm = new ParserAdd();
-                            $addFilm->setNameFilm($dtp['name']);
-                            $addFilm->setCountry($dtp['country']);
-                            $addFilm->setTime($dtp['time']);
-                            $addFilm->setYear($dtp['year']);
-                            $addFilm->setDescription($dtp['description']);
-                            $addFilm->setGrade($dtp['grade']);
-                            $addFilm->setPoster($dtp['poster']);
-                            $addFilm->setGenre($dtp['genre']);
-                            $addFilm->setOriginal($dtp['orig_name']);
-                            $addFilm->save();
+                                $htmlPage = Parser::getPage($tmd);
+                                $contBlock = $htmlPage["data"]["content"];
 
-                            UrlController::liveAdd($urlName, $origNameUrl);
-                            CommentController::commentAdd($comment, $dtp['orig_name']);
-                            var_dump($addFilm);
+                                $pqBlock = phpQuery::newDocument('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . $contBlock);
+
+
+                                foreach ($orig as $el) {
+
+                                    $clout = pq($el);
+                                    $origNameUrl = trim($clout->text());
+
+                                    file_put_contents('Z:\\5.log', date(DATE_ISO8601) . ' ' . $origNameUrl . ' ' . $ied . '  ' . $urlName . '    ' . $page . PHP_EOL, FILE_APPEND);
+
+                                    if (empty(ParserAdd::getIdByOrig($origNameUrl))) {
+
+
+                                        $urlOsn = pq($ur);
+                                        $yearCheck = self::addElement($pqBlock->find(".tbody-sin td:eq(3)"));
+                                        if ($yearCheck == '18+') {
+                                            $year = $pqBlock->find(".tbody-sin td:eq(5)");
+                                            $country = $pqBlock->find(".tbody-sin td:eq(7)");
+                                            $genre = $pqBlock->find(".tbody-sin td:eq(9)");
+                                        } else {
+                                            $year = $pqBlock->find(".tbody-sin td:eq(3)");
+                                            $country = $pqBlock->find(".tbody-sin td:eq(5)");
+                                            $genre = $pqBlock->find(".tbody-sin td:eq(7)");
+                                        }
+                                        $time = $pqBlock->find(".tbody-sin td:eq(1)");
+                                        $names = $pqBlock->find(".poloska h1");
+                                        $description = $pqBlock->find(".annotaciya");
+                                        $grade = $pqBlock->find(".unit-rating");
+                                        $img = $pqBlock->find(".poster img");
+                                        $comment = $pqBlock->find(".commentlist p");
+
+                                        foreach ($img as $im) {
+                                            $imgPq = pq($im);
+                                            $imgUrl = trim($imgPq->attr("src"));
+
+                                            $dtp = [
+                                                'name' => self::addElement($names),
+                                                'orig_name' => $origNameUrl,
+                                                'country' => self::addElement($country),
+                                                'time' => self::addElement($time),
+                                                'year' => self::addElement($year),
+                                                'genre' => self::addElement($genre),
+                                                'description' => self::addElement($description),
+                                                'grade' => self::addElement($grade),
+                                                'poster' => $imgUrl,
+                                            ];
+
+                                            $addFilm = new ParserAdd();
+                                            $addFilm->setNameFilm($dtp['name']);
+                                            $addFilm->setCountry($dtp['country']);
+                                            $addFilm->setTime($dtp['time']);
+                                            $addFilm->setYear($dtp['year']);
+                                            $addFilm->setDescription($dtp['description']);
+                                            $addFilm->setGrade($dtp['grade']);
+                                            $addFilm->setPoster($dtp['poster']);
+                                            $addFilm->setGenre($dtp['genre']);
+                                            $addFilm->setOriginal($dtp['orig_name']);
+                                            $addFilm->save();
+
+                                            UrlController::liveAdd($urlName, $origNameUrl);
+                                            CommentController::commentAdd($comment, $dtp['orig_name']);
+                                            var_dump($addFilm);
+
+                                        }
+                                    }
+
+                                }
                         }
-                    }
-                }
+
             }
-        }
 
+        }
         phpQuery::unloadDocuments();
     }
 
@@ -140,7 +157,7 @@ class ParserControllerClub
         $dop_url = ["url" => "https://doramalive.ru/dorama/?mode=film&PAGEN_1="];
         $page = 1;
         $offset = 0;
-        while ($page != 50) {
+        while ($page != 230) {
 
 
             $dopHtml = Parser::getPage($dop_url);
@@ -178,6 +195,7 @@ class ParserControllerClub
                         $dopOrig2 = $pqBlock->find(".dl-horizontal i:eq(1)");
                         $dopOrig3 = $pqBlock->find(".dl-horizontal i:eq(2)");
                         $dopOrig4 = $pqBlock->find(".dl-horizontal i:eq(3)");
+                        file_put_contents('Z:\\5.log', date(DATE_ISO8601) . $urlName . '    ' . $page . PHP_EOL, FILE_APPEND);
 
                         while ($page2 != 3) {
 

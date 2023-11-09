@@ -88,15 +88,23 @@ foreach ($vsr as $Film):
 
 
 ?>
-    <div class = "pages">
-        <button onclick="window.location.href='http://podpivo/'" class="btn" >1</button>
-        <button onclick="window.location.href='http://podpivo/page/2'" class="btn">2</button>
-        <button onclick="window.location.href='http://podpivo/page/3'" class="btn">3</button>
-        <button onclick="window.location.href='http://podpivo/page/4'" class="btn">4</button>
-        <button onclick="window.location.href='http://podpivo/page/5'" class="btn">5</button>
-        <button onclick="window.location.href='http://podpivo/page/6'" class="btn">6</button>
-        <button onclick="window.location.href='http://podpivo/page/7'" class="btn">7</button>
-        <button onclick="window.location.href='http://podpivo/page/8'" class="btn">8</button>
-        </div>
+    <div style="text-align: center">
+        <?php
+
+        for ($pageNum = $currentPageNum-5; $pageNum <= $pagesCount; $pageNum++): ?>
+            <?php if ($currentPageNum+6 <= $pageNum):
+                break;
+                ?>
+            <?php endif;?>
+            <?php if ($currentPageNum == $pageNum): ?>
+                <b><?= $pageNum ?></b>
+
+            <?php elseif($pageNum > 0): ?>
+                <a href="/<?=  $pageNum . $pageSortNum ?>"><?= $pageNum ?></a>
+
+            <?php endif;?>
+
+        <?php endfor; ?>
+    </div>
 
 <?php include __DIR__ . '/../footer.php';?>

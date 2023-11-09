@@ -95,6 +95,7 @@ class PivoController
                 $addFilm = ParserAdd::getById($IdTest);
                 $addFilm->setPivgrade($pivGradeFinal);
                 $addFilm->save();
+                file_put_contents('Z:\\5.log', date(DATE_ISO8601) . ' ' . $pivGradeFinal .  '  ' . $IdTest . '    ' . $pivGrade . PHP_EOL, FILE_APPEND);
 
 
             }
