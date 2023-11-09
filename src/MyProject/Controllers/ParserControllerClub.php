@@ -41,7 +41,7 @@ class ParserControllerClub
 
         $page = 0;
 
-        while ($page != 106) {
+        while ($page != 114) {
             $ied = 0;
             $html = Parser::getPage($osn_url);
 
@@ -77,9 +77,6 @@ class ParserControllerClub
                                 $contBlock = $htmlPage["data"]["content"];
 
                                 $pqBlock = phpQuery::newDocument('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . $contBlock);
-
-
-
 
 
                                 foreach ($orig as $el) {

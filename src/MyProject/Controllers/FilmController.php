@@ -84,7 +84,7 @@ class FilmController extends AbstractController
             } elseif ($tip == 'grade'){
                 $grade = 'grade';
             } elseif ($key == 'country'){
-                $genre['country'] = $tip;
+                $country['country'] = $tip;
             }
 
         }
