@@ -86,7 +86,7 @@ class UsersController extends AbstractController
     {
 
         setcookie("token","",time()-3600,"/");
-        header('Location: http://podpivo/');
+        header('Location: /');
 
         }
 }

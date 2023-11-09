@@ -26,7 +26,7 @@ foreach ($sortPage as $Film):
             <?php }?>
     </div>
     <div class="post-home">
-        <a href="http://podpivo/film/<?= $Film->getId()?>">
+        <a href="/film/<?= $Film->getId()?>">
             <span><?= $Film->getName(); ?></span>
             <img src="<? echo $Film->getPoster()?>"  width="189" height="255" alt="lorem"/>
         </a>
@@ -74,54 +74,54 @@ foreach ($sortPage as $Film):
 
 <?php switch ($pageNum):
     case null:?>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=1/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">1</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=2/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">2</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=3/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">3</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=4/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">4</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=5/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">5</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=6/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">6</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=7/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">7</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=8/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">8</button>
+        <button onclick="window.location.href='<? echo '/page=1/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">1</button>
+        <button onclick="window.location.href='<? echo '/page=2/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">2</button>
+        <button onclick="window.location.href='<? echo '/page=3/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">3</button>
+        <button onclick="window.location.href='<? echo '/page=4/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">4</button>
+        <button onclick="window.location.href='<? echo '/page=5/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">5</button>
+        <button onclick="window.location.href='<? echo '/page=6/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">6</button>
+        <button onclick="window.location.href='<? echo '/page=7/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">7</button>
+        <button onclick="window.location.href='<? echo '/page=8/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">8</button>
         <? break;?>
    <? case 2:?>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=1/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">1</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=2/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">2</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=3/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">3</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=4/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">4</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=5/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">5</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=6/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">6</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=7/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">7</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=8/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">8</button>
+        <button onclick="window.location.href='<? echo '/page=1/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">1</button>
+        <button onclick="window.location.href='<? echo '/page=2/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">2</button>
+        <button onclick="window.location.href='<? echo '/page=3/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">3</button>
+        <button onclick="window.location.href='<? echo '/page=4/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">4</button>
+        <button onclick="window.location.href='<? echo '/page=5/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">5</button>
+        <button onclick="window.location.href='<? echo '/page=6/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">6</button>
+        <button onclick="window.location.href='<? echo '/page=7/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">7</button>
+        <button onclick="window.location.href='<? echo '/page=8/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">8</button>
         <? break;?>
     <? case 3:?>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=1/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">1</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=2/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">2</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=3/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">3</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=4/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">4</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=5/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">5</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=6/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">6</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=7/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">7</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=8/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">8</button>
+        <button onclick="window.location.href='<? echo '/page=1/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">1</button>
+        <button onclick="window.location.href='<? echo '/page=2/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">2</button>
+        <button onclick="window.location.href='<? echo '/page=3/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">3</button>
+        <button onclick="window.location.href='<? echo '/page=4/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">4</button>
+        <button onclick="window.location.href='<? echo '/page=5/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">5</button>
+        <button onclick="window.location.href='<? echo '/page=6/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">6</button>
+        <button onclick="window.location.href='<? echo '/page=7/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">7</button>
+        <button onclick="window.location.href='<? echo '/page=8/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">8</button>
         <?break;?>
     <? case 4:?>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=1/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">1</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=2/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">2</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=3/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">3</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=4/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">4</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=5/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">5</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=6/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">6</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=7/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">7</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=8/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">8</button>
+        <button onclick="window.location.href='<? echo '/page=1/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">1</button>
+        <button onclick="window.location.href='<? echo '/page=2/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">2</button>
+        <button onclick="window.location.href='<? echo '/page=3/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">3</button>
+        <button onclick="window.location.href='<? echo '/page=4/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">4</button>
+        <button onclick="window.location.href='<? echo '/page=5/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">5</button>
+        <button onclick="window.location.href='<? echo '/page=6/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">6</button>
+        <button onclick="window.location.href='<? echo '/page=7/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">7</button>
+        <button onclick="window.location.href='<? echo '/page=8/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">8</button>
         <?break;?>
     <? default: ?>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=1/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">1</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=2/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">2</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=3/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">3</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=4/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">4</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=5/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">5</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=6/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">6</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=7/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">7</button>
-        <button onclick="window.location.href='<? echo 'http://podpivo/page=8/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">8</button>
+        <button onclick="window.location.href='<? echo '/page=1/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">1</button>
+        <button onclick="window.location.href='<? echo '/page=2/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">2</button>
+        <button onclick="window.location.href='<? echo '/page=3/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">3</button>
+        <button onclick="window.location.href='<? echo '/page=4/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">4</button>
+        <button onclick="window.location.href='<? echo '/page=5/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">5</button>
+        <button onclick="window.location.href='<? echo '/page=6/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">6</button>
+        <button onclick="window.location.href='<? echo '/page=7/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">7</button>
+        <button onclick="window.location.href='<? echo '/page=8/' . $_SERVER['QUERY_STRING']; ?>'" class="btn">8</button>
     <?php endswitch; ?>
     </div>
 

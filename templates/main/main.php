@@ -31,7 +31,7 @@ foreach ($vsr as $Film):
         <a href="<?= $Film->getUrlclub() ?>" class="button2" target="_blank">DClub</a>
     </div>
 <div class="post-home">
-    <a href="http://podpivo/film/<?= $Film->getId()?>">
+    <a href="/film/<?= $Film->getId()?>">
     <span>
         <?= $Film->getName(); ?>
 

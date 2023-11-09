@@ -20,7 +20,7 @@ foreach ($filmPage as $Film):
         <a href="<?= $Film->getUrlclub() ?>" class="button2" target="_blank">DClub</a>
     </div>
     <div class="post-home">
-        <a href="http://podpivo/film/<?= $Film->getId()?>">
+        <a href="/film/<?= $Film->getId()?>">
             <span><?= $Film->getName(); ?></span>
                 <img src="<? echo $Film->getPoster()?>"  width="189" height="255" alt="lorem"/>
         </a>

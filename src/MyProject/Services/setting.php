@@ -2,10 +2,10 @@
 
 return [
     'db' => [
-        'host' => 'localhost',
-        'dbname' => 'pdp',
-        'user' => 'root',
-        'password' => '',
+        'host' => '172.25.0.3',
+        'dbname' => 'mydatabase',
+        'user' => 'myuser',
+        'password' => 'mypassword',
         'charset'  => 'utf8mb4',
     ]
 ];

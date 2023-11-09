@@ -14,7 +14,7 @@ class Db
     {
         self::$instancesCount++;
 
-        $dbOptions = (require __DIR__ . '\setting.php')['db'];
+        $dbOptions = (require __DIR__ . '/setting.php')['db'];
         $options = [
             \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
             \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
