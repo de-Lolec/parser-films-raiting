@@ -35,16 +35,16 @@ class ParserControllerClub
 
     public static function addBlockClub()
     {
-
-      // $osn_url = ["url" => "https://doramy.club/navi-cl/page/2?razdel=filmy&tax_strana&tax_perevod=russkaya-ozvuchka&tax_studiya&sort_rai=ratings_average&sort_stat=status#038;tax_strana&tax_perevod=russkaya-ozvuchka&tax_studiya&sort_rai=ratings_average&sort_stat=status"];
+      $osn_url = ["url" => "https://doramy.club/navi-cl/page/2?razdel=filmy&tax_strana&tax_perevod=russkaya-ozvuchka&tax_studiya&sort_rai=ratings_average&sort_stat=status#038;tax_strana&tax_perevod=russkaya-ozvuchka&tax_studiya&sort_rai=ratings_average&sort_stat=status"];
 
       $page = 100;
 
       while ($page != 102) {
         $ied = 0;
-        $html = Parser::getPage($osn_url);
+        
         echo $page;
         $osn_url['url'] = "https://doramy.club/navi-cl/page/" . $page++ . "?razdel=filmy&tax_strana&tax_perevod=russkaya-ozvuchka&tax_studiya&sort_rai=ratings_average&sort_stat=status#038;tax_strana&tax_perevod=russkaya-ozvuchka&tax_studiya&sort_rai=ratings_average&sort_stat=status";
+        $html = Parser::getPage($osn_url);
         var_dump($osn_url);
         if (!empty($html["data"])) {
 
@@ -77,7 +77,6 @@ class ParserControllerClub
 
             $pqBlock = phpQuery::newDocument('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . $contBlock);
 
-
             foreach ($orig as $el) {
 
               $clout = pq($el);
@@ -85,6 +84,7 @@ class ParserControllerClub
 
               // file_put_contents('Z:\\5.log', date(DATE_ISO8601) . ' ' . $origNameUrl . ' ' . $ied . '  ' . $urlName . '    ' . $page . PHP_EOL, FILE_APPEND);
               var_dump($origNameUrl);
+              var_dump(empty(ParserAdd::getIdByOrig($origNameUrl)));
               if (empty(ParserAdd::getIdByOrig($origNameUrl))) {
 
                 $urlOsn = pq($ur);
@@ -104,7 +104,7 @@ class ParserControllerClub
                 $grade = $pqBlock->find(".unit-rating");
                 $img = $pqBlock->find(".poster img");
                 $comment = $pqBlock->find(".commentlist p");
-
+                var_dump('faefawefawefaa');
                 foreach ($img as $im) {
                   $imgPq = pq($im);
                   $imgUrl = trim($imgPq->attr("src"));
@@ -131,13 +131,15 @@ class ParserControllerClub
                   $addFilm->setPoster($dtp['poster']);
                   $addFilm->setGenre($dtp['genre']);
                   $addFilm->setOriginal($dtp['orig_name']);
-                  // $addFilm->save();
-                  echo 1;
-                  // UrlController::liveAdd($urlName, $origNameUrl);
-                  // CommentController::commentAdd($comment, $dtp['orig_name']);
+                  $addFilm->save();
+                  // var_dump('faefawefawefa');
+                  // echo 'faefawefawefa';
+                  UrlController::liveAdd($urlName, $origNameUrl);
+                  CommentController::commentAdd($comment, $dtp['orig_name']);
                   var_dump($addFilm);
 
                 }
+                // var_dump($addFilm);
               }
 
             }
