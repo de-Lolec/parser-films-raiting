@@ -37,15 +37,15 @@ class ParserControllerClub
     {
       $osn_url = ["url" => "https://doramy.club/navi-cl/page/2?razdel=filmy&tax_strana&tax_perevod=russkaya-ozvuchka&tax_studiya&sort_rai=ratings_average&sort_stat=status#038;tax_strana&tax_perevod=russkaya-ozvuchka&tax_studiya&sort_rai=ratings_average&sort_stat=status"];
 
-      $page = 100;
+      $page = 50;
 
-      while ($page != 102) {
+      while ($page != 111) {
         $ied = 0;
         
         echo $page;
         $osn_url['url'] = "https://doramy.club/navi-cl/page/" . $page++ . "?razdel=filmy&tax_strana&tax_perevod=russkaya-ozvuchka&tax_studiya&sort_rai=ratings_average&sort_stat=status#038;tax_strana&tax_perevod=russkaya-ozvuchka&tax_studiya&sort_rai=ratings_average&sort_stat=status";
         $html = Parser::getPage($osn_url);
-        var_dump($osn_url);
+        // var_dump($osn_url);
         if (!empty($html["data"])) {
 
           $content = $html["data"]["content"];
@@ -58,7 +58,7 @@ class ParserControllerClub
 
             if ($ied != 10) {
 
-              var_dump($ied);
+              // var_dump($ied);
 
               $orig = $pq->find(".post-list em:eq(" . $ied . ")");
             } else {
@@ -83,50 +83,58 @@ class ParserControllerClub
               $origNameUrl = trim($clout->text());
 
               // file_put_contents('Z:\\5.log', date(DATE_ISO8601) . ' ' . $origNameUrl . ' ' . $ied . '  ' . $urlName . '    ' . $page . PHP_EOL, FILE_APPEND);
-              var_dump($origNameUrl);
-              var_dump(empty(ParserAdd::getIdByOrig($origNameUrl)));
+              // var_dump($origNameUrl);
+              // var_dump(empty(ParserAdd::getIdByOrig($origNameUrl)));
               if (empty(ParserAdd::getIdByOrig($origNameUrl))) {
-
+                var_dump($origNameUrl);
                 $urlOsn = pq($ur);
-                $yearCheck = self::addElement($pqBlock->find(".tbody-sin td:eq(3)"));
-                if ($yearCheck == '18+') {
-                  $year = $pqBlock->find(".tbody-sin td:eq(5)");
-                  $country = $pqBlock->find(".tbody-sin td:eq(7)");
-                  $genre = $pqBlock->find(".tbody-sin td:eq(9)");
-                } else {
-                  $year = $pqBlock->find(".tbody-sin td:eq(3)");
-                  $country = $pqBlock->find(".tbody-sin td:eq(5)");
-                  $genre = $pqBlock->find(".tbody-sin td:eq(7)");
-                }
+
+                $yearYearCountry = self::addElement($pqBlock->find(".table-tag u:eq(1)"));
+
+                $sliceYearCountry = explode(", ", $yearYearCountry);
+
+                $country = implode(", ", array_slice($sliceYearCountry, 0, -1));
+                $year = end($sliceYearCountry);
+                
+                $genre = $pqBlock->find(".table-tag td:eq(2)");
+
                 $time = $pqBlock->find(".tbody-sin td:eq(1)");
-                $names = $pqBlock->find(".poloska h1");
-                $description = $pqBlock->find(".annotaciya");
+                $names = $pqBlock->find(".post-singl h1");
+                $description = $pqBlock->find(".infotext p");
                 $grade = $pqBlock->find(".unit-rating");
-                $img = $pqBlock->find(".poster img");
+                $img = $pqBlock->find(".img-poster img");
                 $comment = $pqBlock->find(".commentlist p");
-                var_dump('faefawefawefaa');
+                // var_dump('faefawefawefaa');
                 foreach ($img as $im) {
+                  
                   $imgPq = pq($im);
                   $imgUrl = trim($imgPq->attr("src"));
 
+                  var_dump($imgUrl);
+                  
                   $dtp = [
                     'name' => self::addElement($names),
                     'orig_name' => $origNameUrl,
-                    'country' => self::addElement($country),
+                    'country' => $country,
                     'time' => self::addElement($time),
-                    'year' => self::addElement($year),
+                    'year' => $year,
                     'genre' => self::addElement($genre),
                     'description' => self::addElement($description),
                     'grade' => self::addElement($grade),
                     'poster' => $imgUrl,
                   ];
 
+                  echo '<pre>';
+                  var_dump($dtp);
+                  echo '</pre>';
                   $addFilm = new ParserAdd();
                   $addFilm->setNameFilm($dtp['name']);
                   $addFilm->setCountry($dtp['country']);
                   $addFilm->setTime($dtp['time']);
                   $addFilm->setYear($dtp['year']);
-                  $addFilm->setDescription($dtp['description']);
+                  if(!is_null($dtp['description'])){
+                    $addFilm->setDescription($dtp['description']);
+                  }
                   $addFilm->setGrade($dtp['grade']);
                   $addFilm->setPoster($dtp['poster']);
                   $addFilm->setGenre($dtp['genre']);
@@ -136,8 +144,9 @@ class ParserControllerClub
                   // echo 'faefawefawefa';
                   UrlController::liveAdd($urlName, $origNameUrl);
                   CommentController::commentAdd($comment, $dtp['orig_name']);
-                  var_dump($addFilm);
-
+                  // echo '<pre>';
+                  // var_dump($addFilm);
+                  // echo '<pre>';
                 }
                 // var_dump($addFilm);
               }
@@ -157,7 +166,7 @@ class ParserControllerClub
       $dop_url = ["url" => "https://doramalive.ru/dorama/?mode=film&PAGEN_1="];
       $page = 1;
       $offset = 0;
-      while ($page != 230) {
+      while ($page != 2) {
 
 
         $dopHtml = Parser::getPage($dop_url);
@@ -195,7 +204,7 @@ class ParserControllerClub
               $dopOrig2 = $pqBlock->find(".dl-horizontal i:eq(1)");
               $dopOrig3 = $pqBlock->find(".dl-horizontal i:eq(2)");
               $dopOrig4 = $pqBlock->find(".dl-horizontal i:eq(3)");
-              file_put_contents('Z:\\5.log', date(DATE_ISO8601) . $urlName . '    ' . $page . PHP_EOL, FILE_APPEND);
+              // file_put_contents('Z:\\5.log', date(DATE_ISO8601) . $urlName . '    ' . $page . PHP_EOL, FILE_APPEND);
 
               while ($page2 != 3) {
 

@@ -2,6 +2,8 @@
 
 namespace MyProject\Repositories;
 
+set_time_limit(3600);
+
 use MyProject\Models\parsers\ParserAdd;
 use MyProject\Services\Db;
 use MyProject\View\View;
@@ -34,8 +36,8 @@ class Parser
                 $url = $params["url"];
 
                 $useragent      = !empty($params["useragent"]) ? $params["useragent"] : "Mozilla/5.0 (Windows NT 6.3; W…) Gecko/20100101 Firefox/57.0";
-                $timeout        = !empty($params["timeout"]) ? $params["timeout"] : 5;
-                $connecttimeout = !empty($params["connecttimeout"]) ? $params["connecttimeout"] : 5;
+                $timeout        = !empty($params["timeout"]) ? $params["timeout"] : 15;
+                $connecttimeout = !empty($params["connecttimeout"]) ? $params["connecttimeout"] : 15;
                 $head           = !empty($params["head"]) ? $params["head"] : false;
 
                 $cookie_file    = !empty($params["cookie"]["file"]) ? $params["cookie"]["file"] : false;
