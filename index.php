@@ -1,5 +1,6 @@
 <?php
-
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
+ini_set('display_errors', 1);
 try {
     spl_autoload_register(function (string $className) {
         require_once __DIR__ . '/src/' . str_replace('\\', '/', $className) . '.php';
