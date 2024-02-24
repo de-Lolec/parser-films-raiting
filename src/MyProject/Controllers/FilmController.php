@@ -15,7 +15,7 @@ class FilmController extends AbstractController
     public function film(int $FilmId)
     {
         $film = ParserAdd::getById($FilmId);
-        explode('%', $pageValue);
+
         $this->view->renderHtml('film/film.php', [
             'film' => $film
         ]);
